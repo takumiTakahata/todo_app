@@ -7,7 +7,7 @@ export default function TodoList() {
     const [list, setList] = useState<TaskList[]>([]);
     
     useEffect(() => {
-        // APIからタスクの一覧を取得する
+        // json-serverからタスクの一覧を取得する
         const fetchData = async () => {
             try {
                 const response = await fetch("http://localhost:3001/tasks", {
