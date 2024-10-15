@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import TaskList from "../type/type";
+import  TaskList  from "../type/type";
 
 export default function TodoList() {
     //  登録されたタスクを格納するstate
