@@ -8,19 +8,26 @@ export default function TodoForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (task.trim() === "") return;
-
-    // タスクをjson-serverに送信
-    const response = await fetch("http://localhost:3001/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    try {
+      // タスクをjson-serverに送信
+      const response = await fetch("http://localhost:3001/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
       },
-      body: JSON.stringify({ task: task }),
-    });
-    if (response.ok) {
+        body: JSON.stringify({ task: task }),
+      });
+      if (response.ok) {
+        const newTask = await response.json();
+        setTasks([...tasks, newTask.task]);
+        setTask("");
+      }
+      
       const newTask = await response.json();
       setTasks([...tasks, newTask.task]);
       setTask("");
+    }catch(e){
+      console.error(e);
     }
   };
 
@@ -37,4 +44,4 @@ export default function TodoForm() {
       </form>
     </>
   );
-}
+};
