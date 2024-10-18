@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import  TaskList  from "../type/type";
+import TaskList from "../type/type";
+import TodoDelete from "../components/TodoDelete";
 
 export default function TodoList() {
     //  登録されたタスクを格納するstate
@@ -25,6 +26,9 @@ export default function TodoList() {
         fetchData();
     },[])
 
+    const handleDeleteSuccess = (id: string) => {
+    setList(list.filter((task) => task.id !== id)); // 削除されたタスクをリストから除去
+    };
    
     return (
         <>
@@ -33,6 +37,7 @@ export default function TodoList() {
                 list.map((task) => (
                     <div key={task.id}>
                         <p>{task.task}</p>
+                        <TodoDelete taskId={task.id} onDeleteSuccess={handleDeleteSuccess} />
                     </div>
                 ))
             ) : (
